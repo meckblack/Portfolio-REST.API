@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express(),
-    //Start Server on port 3000
-    port = process.env.PORT || 3000,
+    //Start Server on port 8080
+    port = process.env.PORT || 8080,
     path = require('path'),
 
     mongoose = require('mongoose'),
@@ -25,13 +25,15 @@ mongoose.connect(_db.url)
     function(err){
         console.log('Error: ' + err);
     });
-
+//Register Models
+require('./api/models/news.js');
 //use body-parser
 app.use(bodyparser.urlencoded({ extended : true }));
 app.use(bodyparser.json());
 
 //Import Routes
 var _newsRoutes = require('./api/routes/newsRoutes.js');
+
 
 app.use(function (req, res, next) {
     
@@ -59,12 +61,5 @@ app.use(function (req, res, next) {
 
 //register routes
 _newsRoutes(app);
-
-
-
-
-
-
-
 
 app.listen(port);
