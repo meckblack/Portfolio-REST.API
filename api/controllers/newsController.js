@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     News = mongoose.model('News');
 
-exports.list_newss = function(req, res){
+exports.list_news = function(req, res){
     News.find({}, function(err, news){
         if(err)
             res.send(err);
