@@ -27,12 +27,17 @@ mongoose.connect(_db.url)
     });
 //Register Models
 require('./api/models/news.js');
+require('./api/models/user.js');
+
+
+
 //use body-parser
 app.use(bodyparser.urlencoded({ extended : true }));
 app.use(bodyparser.json());
 
 //Import Routes
 var _newsRoutes = require('./api/routes/newsRoutes.js');
+var _usersRoutes = require('./api/routes/userRoutes.js');
 
 
 app.use(function (req, res, next) {
@@ -61,5 +66,6 @@ app.use(function (req, res, next) {
 
 //register routes
 _newsRoutes(app);
+_usersRoutes(app);
 
 app.listen(port);

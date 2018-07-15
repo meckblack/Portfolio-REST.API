@@ -1,6 +1,7 @@
 'use strict'
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    bcrypt = require('bcrypt');
 
 var UserSchema = new Schema({
     email: {
@@ -18,5 +19,18 @@ var UserSchema = new Schema({
         required: 'Confirm Password field is required!!!'
     }
 });
+
+UserSchema.methods.generateHash = function(password){
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+}
+
+UserSchema.methods.generateHash2 = function(confirmPassword){
+    return bcrypt.hashSync(confirmPassword, bcrypt.genSaltSync(9));
+}
+
+UserSchema.methods.validPassword = function(password){
+    return bcrypt.compareSync(password, this.UserSchema.password);
+}
+
 
 module.exports = mongoose.model('Users', UserSchema);

@@ -4,6 +4,6 @@ module.exports = function(app){
 
     //ROUTES
     app.route('/api/users')
-        .get(users.list_users)
-        .post(users.create_user);
+        .get(users.findAll)
+        .post(users.create);
 }
